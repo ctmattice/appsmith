@@ -114,6 +114,16 @@ import ProgressBarWidget, {
 import SwitchGroupWidget, {
   CONFIG as SWITCH_GROUP_WIDGET_CONFIG,
 } from "widgets/SwitchGroupWidget";
+import InputWidgetV2, {
+  CONFIG as INPUT_WIDGET_V2_CONFIG,
+} from "widgets/InputWidgetV2";
+import PhoneInputWidget, {
+  CONFIG as PHONE_INPUT_WIDGET_V2_CONFIG,
+} from "widgets/PhoneInputWidget";
+import CurrencyInputWidget, {
+  CONFIG as CURRENCY_INPUT_WIDGET_V2_CONFIG,
+} from "widgets/CurrencyInputWidget";
+
 import CameraWidget, {
   CONFIG as CAMERA_WIDGET_CONFIG,
 } from "widgets/CameraWidget";
@@ -170,6 +180,9 @@ export const registerWidgets = () => {
   registerWidget(ProgressBarWidget, PROGRESSBAR_WIDGET_CONFIG);
   registerWidget(CameraWidget, CAMERA_WIDGET_CONFIG);
   registerWidget(MapChartWidget, MAP_CHART_WIDGET_CONFIG);
+  registerWidget(InputWidgetV2, INPUT_WIDGET_V2_CONFIG);
+  registerWidget(PhoneInputWidget, PHONE_INPUT_WIDGET_V2_CONFIG);
+  registerWidget(CurrencyInputWidget, CURRENCY_INPUT_WIDGET_V2_CONFIG);
 
   log.debug("Widget registration took: ", performance.now() - start, "ms");
 };
