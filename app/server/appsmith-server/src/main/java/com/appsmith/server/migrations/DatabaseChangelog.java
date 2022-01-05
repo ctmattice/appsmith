@@ -4768,7 +4768,7 @@ public class DatabaseChangelog {
 
             Theme savedTheme = mongockTemplate.findOne(query, Theme.class);
             if(savedTheme == null) {  // this theme does not exist, create it
-                mongockTemplate.save(theme);
+                savedTheme = mongockTemplate.save(theme);
             } else { // theme already found, update
                 themeExists = true;
                 savedTheme.setConfig(theme.getConfig());
