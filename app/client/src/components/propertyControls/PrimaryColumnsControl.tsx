@@ -98,6 +98,7 @@ type RenderComponentProps = {
     isVisible?: boolean;
     isDuplicateLabel?: boolean;
   };
+  isDragging: boolean;
   updateFocus?: (index: number, isFocused: boolean) => void;
   updateOption: (index: number, value: string) => void;
   onEdit?: (index: number) => void;
@@ -130,6 +131,7 @@ function ColumnControlComponent(props: RenderComponentProps) {
     deleteOption,
     focusedIndex,
     index,
+    isDragging,
     item,
     onEdit,
     toggleVisibility,
@@ -142,12 +144,16 @@ function ColumnControlComponent(props: RenderComponentProps) {
   const debouncedFocus = updateFocus ? _.debounce(updateFocus, 400) : noop;
 
   useEffect(() => {
-    if (!!focusedIndex && focusedIndex === index) {
+    if (focusedIndex !== null && focusedIndex === index && !isDragging) {
       if (ref && ref.current) {
         ref?.current.focus();
       }
+    } else if (isDragging && focusedIndex === index) {
+      if (ref && ref.current) {
+        ref?.current.blur();
+      }
     }
-  }, [focusedIndex]);
+  }, [focusedIndex, isDragging]);
 
   const onChange = useCallback(
     (index: number, value: string) => {
@@ -159,11 +165,18 @@ function ColumnControlComponent(props: RenderComponentProps) {
 
   const onFocus = () => {
     setEditing(false);
-    debouncedFocus(index, true);
+    if (updateFocus) {
+      updateFocus(index, true);
+    }
   };
+
   const onBlur = () => {
-    setEditing(false);
-    debouncedFocus(index, false);
+    if (!isDragging) {
+      setEditing(false);
+      if (updateFocus) {
+        updateFocus(index, false);
+      }
+    }
   };
 
   return (
